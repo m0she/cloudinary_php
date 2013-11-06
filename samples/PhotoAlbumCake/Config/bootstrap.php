@@ -43,6 +43,7 @@ Cache::config('default', array('engine' => 'File'));
  * ));
  *
  */
+App::build(array('Plugin' => APP . '..' . DS . '..' . DS . 'cake_plugin' . DS));
 
 /**
  * Custom Inflector rules, can be set to correctly pluralize or singularize table, model, controller names or whatever other
@@ -99,4 +100,12 @@ CakeLog::config('error', array(
 	'file' => 'error',
 ));
 
+require_once '../../../src/Cloudinary.php';
+try {
+    Configure::load('private');
+    \Cloudinary::config(Configure::read('cloudinary'));
+} catch (Exception $e) {
+    $result = Configure::configured('default');
+    $this->assertTrue($result);
+}
 CakePlugin::load('CloudinaryCake', array('bootstrap' => false, 'routes' => false));
