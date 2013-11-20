@@ -257,7 +257,6 @@ namespace Cloudinary {
 	    		$this->version = $matches[3];
 	    		$this->filename = $matches[4];
 	    		$this->signature = $matches[5];
-				
 			} else {
 				throw new \InvalidArgumentException("Invalid preloaded file info");	
 			}			
