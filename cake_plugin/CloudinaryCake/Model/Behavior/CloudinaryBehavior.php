@@ -61,7 +61,11 @@ class CloudinaryBehavior extends ModelBehavior {
         return true;
     }
 
-    /// Methods
+    /// Public Methods ///
+    public function cloudinaryFields(Model $Model) {
+        return $this->settings[$Model->alias]['fields'];
+    }
+
     public function getCloudinaryField(Model $Model, $fieldName, $source=NULL) {
         error_log("CloudinaryBehavior::getCloudinaryField(): ");
         $source = $source ? $source : $Model->data;
@@ -69,6 +73,7 @@ class CloudinaryBehavior extends ModelBehavior {
             $source[$Model->alias][$fieldName] : "");
     }
 
+    /// Private Methods ///
     private function updateCloudinaryField(Model $Model, $fieldName, &$data=NULL) {
         $source =& $data ? $data : $Model->data;
         if (isset($source[$Model->alias][$fieldName]) && $source[$Model->alias][$fieldName] instanceof CloudinaryField) {
