@@ -100,7 +100,8 @@ CakeLog::config('error', array(
 	'file' => 'error',
 ));
 
-require_once '../../../src/Cloudinary.php';
+define('CLOUDINARY_PATH', realpath(dirname(__FILE__) . DS . '..' . DS . '..' . DS . '..' . DS . 'src') . DS);
+require_once CLOUDINARY_PATH . 'Cloudinary.php';
 try {
     Configure::load('private');
     \Cloudinary::config(Configure::read('cloudinary'));

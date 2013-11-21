@@ -12,7 +12,14 @@
 	<?php foreach ($photos as $photo): ?>
 	<tr>
 		<td><?php echo h($photo['Photo']['id']); ?>&nbsp;</td>
-		<td><?php echo h($photo['Photo']['cloudinaryIdentifier']); ?>&nbsp;</td>
+        <td><?php
+          if ($photo['Photo']['cloudinaryIdentifier']->url()) {
+              echo '<a href="' . $photo['Photo']['cloudinaryIdentifier']->url() . '" target="_blank">';
+              $close_tag = '</a>';
+          }
+          echo h($photo['Photo']['cloudinaryIdentifier']);
+          echo @$close_tag;
+        ?></td>
 		<td><?php echo h($photo['Photo']['moderated']); ?>&nbsp;</td>
 		<td><?php echo h($photo['Photo']['created']); ?>&nbsp;</td>
 		<td><?php echo h($photo['Photo']['updated']); ?>&nbsp;</td>

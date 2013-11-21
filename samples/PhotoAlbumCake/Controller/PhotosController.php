@@ -14,6 +14,19 @@ class PhotosController extends AppController {
  * @var array
  */
 	public $components = array('Paginator');
+    public $helpers = array('Html', 'Form', 'CloudinaryCake.Cloudinary');
+
+    public function test() {
+        //var_dump($this->viewVars['x']);
+        $x = $this->Photo->create();
+        $pizza = getcwd() . DS . '..' . DS . '..' . DS . 'basic' . DS . 'pizza.jpg';
+        $fld = $this->Photo->getCloudinaryField('cloudinaryIdentifier');
+        $fld->upload($pizza);
+        error_log("*x: " . $fld->url());
+        $this->Photo->set("cloudinaryIdentifier", 'test.jpg');
+        error_log("*y: " . $this->Photo->getCloudinaryField('cloudinaryIdentifier'));
+        error_log("*z: " . $this->Photo->getCloudinaryField('cloudinaryIdentifier')->url());
+    }
 
 /**
  * index method
@@ -22,7 +35,8 @@ class PhotosController extends AppController {
  */
 	public function index() {
 		$this->Photo->recursive = 0;
-		$this->set('photos', $this->Paginator->paginate());
+        $tmp = $this->Paginator->paginate();
+		$this->set('photos', $tmp);
 	}
 
 /**
