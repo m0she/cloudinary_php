@@ -99,5 +99,18 @@ CakeLog::config('error', array(
 	'file' => 'error',
 ));
 
-require join(DS, array(APP . '..', '..', 'cake_plugin')) . DS . 'CloudinaryCakeLoader.php';
-CloudinaryCakeLoader::load();
+$success = false;
+foreach(array(
+    APP . 'Plugin' . DS . 'CloudinaryCakeLoader.php',
+    ROOT . 'Plugin' . DS . 'CloudinaryCakeLoader.php',
+    join(DS, array(APP . '..', '..', 'cake_plugin')) . DS . 'CloudinaryCakeLoader.php'
+) as $loader_path) {
+    $success = $success || @include($loader_path);
+    if ($success) {
+        CloudinaryCakeLoader::load();
+        break;
+    }
+}
+if (!$success) {
+    trigger_error("Cloudinary PhotoAlbumCake sample couldn't find the CloudinaryCakeLoader from the plugin directory");
+}

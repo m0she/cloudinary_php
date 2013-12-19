@@ -8,6 +8,7 @@ $get_cloudinary_path = function() {
     $autodetect = array(
         realpath(implode(DS, array(dirname(__FILE__), '..', '..', '..', 'src'))),
         realpath(implode(DS, array(dirname(__FILE__), '..', 'Lib', 'Cloudinary'))),
+        realpath(implode(DS, array(dirname(__FILE__), '..', 'Lib'))),
     );
     foreach ($autodetect as $path) {
         $path .= DS;
